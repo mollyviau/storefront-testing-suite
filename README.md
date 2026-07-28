@@ -71,6 +71,9 @@ Van Trinh Nguyen:
 ## Course
 
 Modern Software Development (CMP-1979)
+
 Capstone Project
+
 Cambrian College
+
 2026
