@@ -70,6 +70,7 @@ Van Trinh Nguyen:
 
 ## Course
 
-Software Testing Capstone Project
+Modern Software Development (CMP-1979)
+Capstone Project
 Cambrian College
 2026
