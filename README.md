@@ -52,19 +52,27 @@ The project focuses on testing the following critical workflows:
 
 Molly Viau:  
 -Set up Saleor instance locally 
+
 -Define test workflows/feature areas 
+
 -Draft Section 5: Scope 
 
 Rishabh Bhutani:  
 -Create GitHub repository structure 
+
 -Write an initial README for GitHub 
+
 -Draft Section 1: Title Page 
+
 -Draft Section 3: Group Members and Roles 
 
 Van Trinh Nguyen:  
 -Draft Section 4: Application Overview 
+
 -Draft Section 6: Requirements / Feature Review 
+
 -Draft Section 7: Test Strategy 
+
 
 ---
 
