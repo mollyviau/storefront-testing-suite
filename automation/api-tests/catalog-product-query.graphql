@@ -1,0 +1,14 @@
+# Catalog and Search API Test
+# TC01 - Retrieve product listing
+
+query {
+  products(first: 5) {
+    edges {
+      node {
+        id
+        name
+        slug
+      }
+    }
+  }
+}
