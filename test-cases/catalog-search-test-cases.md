@@ -1,6 +1,6 @@
 # Catalog and Search Test Cases
 
-## TC-CS-01 – Retrieve Product List
+## TC-PC-01 – Retrieve Product List
 
 **Purpose:** Verify that the Saleor GraphQL API can retrieve products from the product catalog.
 
@@ -24,7 +24,7 @@
 **Status:** PASS
 
 
-## TC-CS-02 – Search Product by Keyword
+## TC-PC-02 – Search Product by Keyword
 
 **Purpose:** Verify that the product search returns a product matching the search keyword.
 
@@ -48,7 +48,7 @@
 **Status:** PASS
 
 
-## TC-CS-03 – Retrieve Product by ID
+## TC-PC-03 – Retrieve Product by ID
 
 **Purpose:** Verify that a specific product can be retrieved using its GraphQL product ID.
 
