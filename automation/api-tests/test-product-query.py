@@ -4,7 +4,7 @@ URL = "http://localhost:8000/graphql/"
 
 QUERY = """
 query {
-  products(first: 5) {
+  products(first: 5, channel: "default-channel") {
     edges {
       node {
         id
