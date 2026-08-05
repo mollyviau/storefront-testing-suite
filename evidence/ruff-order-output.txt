@@ -1,0 +1,42 @@
+(.venv) rishabh@Rishabhssworld:~/saleor-core$ cat ruff-order-output.txt
+FURB110 [*] Replace ternary `if` expression with `or` operator
+   --> saleor/order/actions.py:498:20
+    |
+497 |     total_refunded = Decimal(0)
+498 |     last_payment = payment if payment else order.get_last_payment()
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+499 |     if last_payment and last_payment.charge_status in [
+500 |         ChargeStatus.PARTIALLY_REFUNDED,
+    |
+help: Replace with `or` operator
+    |
+497 |     total_refunded = Decimal(0)
+    -     last_payment = payment if payment else order.get_last_payment()
+498 +     last_payment = payment or order.get_last_payment()
+499 |     if last_payment and last_payment.charge_status in [
+    |
+
+FURB110 [*] Replace ternary `if` expression with `or` operator
+   --> saleor/order/utils.py:521:9
+    |
+519 |       """Set the user, each time a giftcard is used."""
+520 |       gift_card.used_by = (
+521 | /         used_by_user
+522 | |         if used_by_user
+523 | |         else User.objects.filter(email=used_by_email).first()
+    | |_____________________________________________________________^
+524 |       )
+525 |       gift_card.used_by_email = used_by_email
+    |
+help: Replace with `or` operator
+    |
+520 |     gift_card.used_by = (
+    -         used_by_user
+    -         if used_by_user
+    -         else User.objects.filter(email=used_by_email).first()
+521 +         used_by_user or User.objects.filter(email=used_by_email).first()
+522 |     )
+    |
+
+Found 2 errors.
+[*] 2 fixable with the `--fix` option.
