@@ -88,3 +88,29 @@ Capstone Project
 Cambrian College
 
 2026
+
+
+---
+
+## Repository Structure
+
+- `automation/` - Automated testing files
+- `bug-reports/` - Defect reports and supporting screenshots
+- `evidence/` - Test execution and static analysis evidence
+- `test-cases/` - Manual and API test cases
+- `test-data/` - Supporting test data
+- `presentation/` - Presentation materials
+- `docs/` - Project documentation
+- `screenshots/` - Supporting screenshots
+
+## Current Testing Evidence
+
+The repository includes manual test cases, API automation evidence, static code analysis results, authentication test evidence, and documented defect investigations.
+
+Key testing evidence includes:
+
+- Catalog and product test cases
+- GraphQL API automation results
+- Ruff static analysis results
+- Authentication test execution evidence
+- Bug 66 investigation and screenshots
