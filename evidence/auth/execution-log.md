@@ -68,3 +68,44 @@ No token was issued in any variation and no Dashboard content became accessible.
 - Variation C confirms client-side validation only. Whether the server rejects an
   empty password is untested — would require a request issued directly against
   the GraphQL endpoint.
+
+
+  ---
+
+## TC-AUTH-03 — End-to-end password reset via emailed token
+
+**Executed:** 2026-08-04
+**Status:** PASS
+
+Reset requested from the sign-in form. Dashboard navigated to
+`/dashboard/reset-password/success/` showing "Success! In a few minutes you'll
+receive a message with instructions on how to reset your password."
+`requestPasswordReset` returned HTTP 200 with empty `errors`.
+
+Email delivered to Mailpit from `noreply@example.com`, subject "Reset your Saleor
+password". Delivery took approximately 3 minutes. Link pointed to
+`/dashboard/new-password/` carrying both `email` and `token` parameters. Message
+stated the link expires in 24 hours.
+
+New password `NewPass!2026` accepted. `setPassword` returned empty `errors` with a
+new token and refreshToken. Sign-in with the new password succeeded. Sign-in with
+the previous password was rejected (`INVALID_CREDENTIALS`), confirming replacement
+rather than addition of a credential.
+
+Account password restored to `admin` via Django shell (`set_password`, which
+bypasses validators) and verified by signing in. Environment returned to the state
+documented in TC-AUTH-01 and TC-AUTH-02.
+
+**Evidence:** TC-AUTH-03_01 through TC-AUTH-03_07
+
+**Observations for exploratory session (ID 48):**
+- Email states a 24-hour expiry; Django's default `PASSWORD_RESET_TIMEOUT` is
+  3 days. Verify whether Saleor overrides this — if not, the email misstates the
+  security window. Strongest defect candidate found so far.
+- Seeded password `admin` (5 chars) fails the reset form's minimum-length
+  validation but is accepted at sign-in. Existing passwords are not revalidated
+  against current policy.
+- ~3 minute delivery delay via Celery worker. Success page sets the expectation
+  correctly ("in a few minutes"), so not itself a defect.
+- Mailpit Link Check reported Status 451 on the reset URL — Mailpit refusing to
+  scan a private address, not an application issue.
