@@ -1,0 +1,47 @@
+name: Quality Check
+
+# Runs on every push and pull request to main.
+#
+# This workflow is deliberately limited to static analysis and test collection.
+# Executing the interface and API tests would require standing up the full
+# Saleor stack - Core API, PostgreSQL, Valkey and the Celery worker - for every
+# run. Those tests are marked `live`, are excluded here, and are executed
+# locally with their output committed to /evidence instead. This limitation is
+# documented in Section 8.4 of the report.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  quality-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r automation/requirements.txt
+
+      - name: Lint with Ruff
+        run: ruff check automation/
+
+      - name: Check formatting with Ruff
+        run: ruff format --check automation/
+
+      - name: Verify tests are collectable
+        # Confirms every test file imports cleanly and no test is malformed,
+        # without requiring a running application. Collection only - no test is
+        # executed, so no live Saleor instance is needed.
+        working-directory: automation
+        run: pytest --collect-only
