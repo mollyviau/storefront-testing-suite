@@ -1,0 +1,12 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.4, pytest-9.1.1, pluggy-1.6.0 -- /home/molly/storefront-testing-suite/automation/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/molly/storefront-testing-suite/automation
+configfile: pytest.ini
+plugins: base-url-2.1.0, playwright-0.8.0
+collecting ... collected 2 items
+
+ui/test_auth_login.py::test_login_valid_credentials[chromium] PASSED     [ 50%]
+ui/test_auth_login.py::test_login_rejected_wrong_password[chromium] PASSED [100%]
+
+============================== 2 passed in 8.50s ===============================
