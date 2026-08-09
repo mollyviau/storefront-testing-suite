@@ -36,3 +36,5 @@ The password reset email captured in `s1-04` states that the link expires in 24 
 
 - Per-request response times for existing versus non-existent accounts were not measured. The DevTools "Finish" figure is cumulative across the request panel, so a timing side-channel is neither confirmed nor ruled out.
 - Token reuse and superseded-token behaviour was planned but not completed. The 15-minute reset lock made repeated token generation impractical within the time-box.
+
+All evidence files referenced above are stored in evidence/exploratory/ in the project repository, named exploratory-s1-01 through exploratory-s1-18.
