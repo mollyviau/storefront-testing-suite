@@ -78,17 +78,18 @@ pytest
 Or run a single level:
 
 ```bash
-pytest ui      # user-interface tests (Playwright)
-pytest api     # API tests (GraphQL)
+pytest ui/       # user-interface tests (Playwright)
+pytest api/      # API tests (GraphQL)
+pytest service/  # service-level tests
 ```
 
 To watch the browser drive the interface rather than running headless:
 
 ```bash
-pytest ui --headed
+pytest ui/ --headed
 ```
 
-Tests that require a live application are marked `live` in `pytest.ini`. Environment values are read from environment variables and default to the standard local deployment, so no code changes are needed to run against a different instance:
+Environment values are read from environment variables and default to the standard local deployment, so no code changes are needed to run against a different instance:
 
 | Variable | Default |
 |---|---|
@@ -96,6 +97,8 @@ Tests that require a live application are marked `live` in `pytest.ini`. Environ
 | `SALEOR_API_URL` | `http://localhost:8000/graphql/` |
 | `SALEOR_STAFF_EMAIL` | `admin@example.com` |
 | `SALEOR_STAFF_PASSWORD` | `admin` |
+
+Note that Python 3.14 is not compatible with the `greenlet` dependency required by Playwright. Use Python 3.12 or 3.13.
 
 ---
 
@@ -107,25 +110,45 @@ The workflow does not execute the tests themselves. Doing so would require stand
 
 ---
 
+## Key Findings
+
+Detailed analysis of each finding is in the Word report. In summary:
+
+| ID | Workflow | Summary |
+|---|---|---|
+| BUG-66 | Product Catalog and Search | Clearing the required Product Name field and saving returns a success notification, but the empty value is not persisted. |
+| BUG-67 | Checkout and Order Lifecycle | The Mark Order as Paid dialogue accepts an empty transaction reference, allowing a manual payment to be recorded with no traceable reference. |
+| BUG-104 | Authentication | The password reset email states the link expires in 24 hours, while the configured `PASSWORD_RESET_TIMEOUT` is three days. |
+| CR-1 | Authentication | `clean_user()` returns `None` for three distinct conditions, so a reset request suppressed by the lock window is indistinguishable from a delivered one. |
+| CR-2 | Checkout and Order Lifecycle | `clean_mark_order_as_paid()` guards against duplicate manual payments, but does not require an attributable transaction reference. |
+
+A recurring pattern across two workflows is that an operation reports success to the user when the underlying action did not take effect. This is discussed in the final quality evaluation.
+
+Supporting evidence for each finding is committed under `evidence/` and `bug-reports/`.
+
+---
+
 ## Repository Structure
 
 ```
-automation/          Automated tests
-  ui/                User-interface tests (Playwright)
-  api/               API tests (GraphQL)
-  service/           Service-level tests
-  conftest.py        Shared fixtures and environment configuration
-  pytest.ini         Test runner configuration
-  requirements.txt   Test dependencies
-bug-reports/         Defect reports and supporting screenshots
-docs/                Project documentation
-evidence/            Test execution output and static analysis results
-models/              State transition diagram
-presentation/        Presentation materials
-screenshots/         Supporting screenshots
-test-cases/          Manual and API test cases
-test-data/           Supporting test data
-.github/workflows/   Automated quality check
+automation/            Automated tests
+  ui/                  User-interface tests (Playwright)
+  api/                 API tests (GraphQL)
+  service/             Service-level tests
+  conftest.py          Shared fixtures and environment configuration
+  pytest.ini           Test runner configuration
+  requirements.txt     Test dependencies
+bug-reports/           Defect reports and supporting screenshots
+docs/                  Project documentation
+evidence/              Test execution output and static analysis results
+  exploratory/         Exploratory session notes and screenshots
+  defects/             Defect investigation evidence
+models/                State transition diagram
+presentation/          Presentation materials
+screenshots/           Supporting screenshots
+test-cases/            Manual and API test cases
+test-data/             Supporting test data
+.github/workflows/     Automated quality check
 ```
 
 ---
@@ -141,6 +164,7 @@ test-data/           Supporting test data
 | WSL 2 | Linux compatibility layer on Windows hosts |
 | GraphQL Playground | Manual API exploration |
 | Mailpit | Outbound email capture |
+| Jaeger | Request tracing during defect investigation |
 | GitHub Actions | Automated quality check |
 | Azure DevOps Boards | Work item tracking and defect logging |
 
