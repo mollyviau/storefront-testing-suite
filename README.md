@@ -22,7 +22,7 @@ Submitted to Professor Shashank Erukulla.
 
 This project is a focused testing engagement against a locally deployed instance of Saleor 3.23. Rather than attempting broad coverage of a large platform, the group selected three workflows that together form the core commercial path — a user must be able to authenticate, locate a product, and complete a purchase — and tested those in depth.
 
-The work combines manual test case execution, exploratory testing, black-box and white-box techniques, static analysis, defect investigation, and automated testing at both the user-interface and service levels.
+The work combines manual test case execution, exploratory testing, black-box and white-box techniques, static analysis, defect investigation, and automated testing at both the user-interface and API levels.
 
 ### Selected Workflows
 
@@ -80,7 +80,6 @@ Or run a single level:
 ```bash
 pytest ui/       # user-interface tests (Playwright)
 pytest api/      # API tests (GraphQL)
-pytest service/  # service-level tests
 ```
 
 To watch the browser drive the interface rather than running headless:
@@ -124,7 +123,7 @@ Detailed analysis of each finding is in the Word report. In summary:
 
 A recurring pattern across two workflows is that an operation reports success to the user when the underlying action did not take effect. This is discussed in the final quality evaluation.
 
-Supporting evidence for each finding is committed under `evidence/` and `bug-reports/`.
+Supporting evidence for each finding is committed under `evidence/`.
 
 ---
 
@@ -134,18 +133,16 @@ Supporting evidence for each finding is committed under `evidence/` and `bug-rep
 automation/            Automated tests
   ui/                  User-interface tests (Playwright)
   api/                 API tests (GraphQL)
-  service/             Service-level tests
   conftest.py          Shared fixtures and environment configuration
   pytest.ini           Test runner configuration
   requirements.txt     Test dependencies
-bug-reports/           Defect reports and supporting screenshots
-docs/                  Project documentation
 evidence/              Test execution output and static analysis results
   exploratory/         Exploratory session notes and screenshots
   defects/             Defect investigation evidence
+  auth/                Authentication test evidence
+  catalog/             Product and catalog test evidence
+  automation/          Automation evidence
 models/                State transition diagram
-presentation/          Presentation materials
-screenshots/           Supporting screenshots
 test-cases/            Manual and API test cases
 test-data/             Supporting test data
 .github/workflows/     Automated quality check
