@@ -171,7 +171,7 @@ In all three variations no token was issued and no Dashboard content became acce
 
 **Note on Figure 12.14:** the Status 451 shown in that view originates from Mailpit's link-checking feature, which declines to scan private and reserved addresses such as `localhost`. It does not indicate a failure of the link itself, which resolved correctly when opened.
 
-**Defect raised:** the 24-hour expiry stated in the reset email does not match the configured `PASSWORD_RESET_TIMEOUT` of 259,200 seconds (3 days). Recorded as **BUG-104** — see `evidence/defects/` and Section 16.2 of the report.
+**Defect raised:** the 24-hour expiry stated in the reset email does not match the configured `PASSWORD_RESET_TIMEOUT` of 259,200 seconds (3 days). Recorded as **BUG-104** — see `evidence/defects/BUG-104_*` and Section 16.2 of the report.
 
 **Evidence**
 
@@ -180,9 +180,9 @@ In all three variations no token was issued and no Dashboard content became acce
 | `evidence/auth/TC-AUTH-03_01_reset-requested.jpg` | Figure 12.11 |
 | `evidence/auth/TC-AUTH-03_02_mailpit-reset-email.jpg` | Figure 12.12 |
 | `evidence/auth/TC-AUTH-03_03_reset-email-body.jpg` | Figure 12.13 |
-| `evidence/auth/TC-AUTH-03_04_reset-link-parameters.jpg` | Figure 12.14 |
-| `evidence/auth/TC-AUTH-03_05_setpassword-response.jpg` | Figure 12.15 |
-| `evidence/auth/TC-AUTH-03_06_new-password-signin.jpg` | Figure 12.16 |
+| `evidence/auth/TC-AUTH-03_04_reset-link-token.jpg` | Figure 12.14 |
+| `evidence/auth/TC-AUTH-03_05_password-set.jpg` | Figure 12.15 |
+| `evidence/auth/TC-AUTH-03_06_login-new-password.jpg` | Figure 12.16 |
 | `evidence/auth/TC-AUTH-03_07_old-password-rejected.jpg` | Figure 12.17 |
 
 ---
